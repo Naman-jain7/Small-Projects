@@ -1,0 +1,76 @@
+```{r}
+set.seed(123)
+lambda = 4
+n_samples = 10000
+sample_size = 50
+sample_means = replicate(n_samples, mean(rpois(sample_size, lambda)))
+empirical_mean = mean(sample_means)
+empirical_var = var(sample_means)
+theoretical_mean = lambda
+theoretical_var = lambda / sample_size
+
+hist(sample_means, breaks=40)
+plot(density((sample_means)))
+```
+
+
+
+```{r}
+set.seed(123)
+lambda = 1.5
+n_samples = 10000
+theoretical_mean = 1/lambda
+theoretical_var = 1/lambda^2
+n1 = 10
+n2 = 50
+
+means_n10 = replicate(n_samples, mean(rexp(n1, lambda)))
+means_n50 = replicate(n_samples, mean(rexp(n2, lambda)))
+
+# for n=10
+hist(means_n10, breaks=40, main="for n=10")
+plot(density(means_n10), main="density plot for n=10")
+
+# for n=50
+hist(means_n50, breaks=40, main="for n=50")
+plot(density(means_n50), main="density plot for n=50")
+
+# qqplot for n=10
+qqnorm(means_n10, main = "Q-Q Plot (n = 10)")
+qqline(means_n10, col = "red")
+
+# qqplot for n=50
+qqnorm(means_n50, main = "Q-Q Plot (n = 50)")
+qqline(means_n50, col = "red")
+```
+
+```{r}
+set.seed(123)
+mean = 70
+std = 10
+n_samples = 10000
+sample_sizes = c(10,20,50)
+for (i in sample_sizes){
+  sample_means = replicate(n_samples, rnorm(i, mean, std))
+  hist(sample_means, breaks=40, main=paste("for n=",i))
+  plot(density(sample_means))
+}
+```
+
+```{r}
+set.seed(123)
+shape=2
+rate=1
+mean = shape/rate
+variance = shape/rate^2
+n_samples = 10000
+
+sample_sizes = c(10,100)
+for(i in sample_sizes){
+  sample_means = replicate(n_samples, mean(rgamma(i, shape, rate)))
+  hist(sample_means, breaks=40, main=paste("for n=", i))
+  plot(density(sample_means))
+  qqnorm(sample_means, main=paste("QQ plot for n=", i))
+  qqline(sample_means, col="red")
+}
+```

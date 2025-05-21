@@ -1,0 +1,29 @@
+```{r}
+print(1 - punif(45, 0, 60))
+print(punif(30, 0, 60) - punif(20, 0, 60))
+```
+
+```{r}
+lambda = 1/3
+print(dexp(4, rate=lambda))
+
+x = seq(0, 5, 0.01)
+y = dexp(x, lambda)
+plot(x, y, type="l")
+
+print(pexp(3, lambda))
+
+cdf_y = pexp(x, lambda)
+plot(x, cdf_y, type="l")
+
+set.seed(123)
+hist(rexp(1000, rate=lambda), breaks=30, col="red")
+```
+
+```{r}
+alpha = 2
+beta = 1/4
+print(1 - pgamma(1, alpha, beta))
+
+print(qgamma(0.7, 2, 1/4))
+```

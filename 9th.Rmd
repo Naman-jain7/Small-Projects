@@ -1,0 +1,63 @@
+```{r}
+# ques 1
+
+data = read.csv("C:\\Users\\nj323\\Desktop\\Coding R\\Clt-data.csv")
+
+print(nrow(data))
+print(head(data, 10))
+population_mean = mean(data$Wall.Thickness)
+hist(data$Wall.Thickness, main="Histogram of Wall Thickness", xlab="Wall thickness")
+abline(v=population_mean, lwd=2)
+
+sample_means = replicate(1000, mean(sample(data$Wall.Thickness, 10, replace=TRUE)))
+hist(sample_means, 
+     main="Sample Means (n=10)", xlab="Sample Mean")
+
+sample_means_50 = replicate(1000, mean(sample(data$Wall.Thickness, 50, replace=TRUE)))
+hist(sample_means_50, main="Sample Means (n=50)", xlab="Sample Mean")
+
+sample_means_500 = replicate(1000, mean(sample(data$Wall.Thickness, 500, replace=TRUE)))
+hist(sample_means_500, main="Sample Means (n=500)", xlab="Sample Mean")
+
+sample_means_9000 = replicate(1000, mean(sample(data$Wall.Thickness, 9000, replace=TRUE)))
+hist(sample_means_9000, main="Sample Means (n=9000)", xlab="Sample Mean")
+
+# as sample size incr, sampling distribution of mean becomes more symmetric and approaches normal curve.
+```
+
+```{r}
+# ques 2
+Age = c(58, 69, 43, 39, 63, 52, 47, 31, 74, 36)
+Cholesterol = c(189, 235, 193, 177, 154, 191, 213, 165, 198, 181)
+plot(Age, Cholesterol, main="Age vs Cholesterol", col="blue")
+
+model = lm(Cholesterol ~ Age)
+abline(model, col="red", lwd=2)
+summary(model)
+predicted_cholesterol = predict(model, data.frame(Age=60))
+print(predicted_cholesterol)
+```
+
+```{r}
+# ques 3
+# t-test
+before = c(145, 173, 158, 141, 167, 159, 154, 167, 145, 153)
+after = c(155, 167, 156, 149, 168, 162, 158, 169, 157, 161)
+
+t_result = t.test(after, before, paired=TRUE, alternative="greater", conf.level = 0.95)
+print(t_result)
+```
+
+```{r}
+# z-test  
+library(BSDA)
+difference = after - before
+z_result = z.test(difference, mu=0, sigma.x=5, alternative="greater")
+print(z_result)
+```
+
+```{r}
+# ftest
+f_result = var.test(after, before)
+print(f_result)
+```

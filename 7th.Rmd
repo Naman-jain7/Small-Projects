@@ -1,0 +1,51 @@
+```{r}
+t_samples = rt(100, df=99)
+print(t_samples)
+
+hist(t_samples, main = "Histogram of t-distribution n=100 and df=99",xlab = "t-values",
+      col = "skyblue", breaks = 15)
+```
+
+```{r}
+print(rchisq(100,df=2))
+print(rchisq(100,df=10))
+print(rchisq(100,df=25))
+```
+
+```{r}
+x = seq(-6, 6, length.out = 100)
+t_df1 = dt(x,1)
+t_df4 = dt(x,4)
+t_df10 = dt(x,10)
+t_df30 = dt(x,30)
+print(t_df1)
+print(t_df4)
+print(t_df10)
+print(t_df30)
+
+plot(x, t_df30, type = "l", col = "blue", lwd = 2, main = "Student's t-Distribution Density df = 30",
+          ylab = "Density", xlab = "x")
+
+plot(x, t_df1, type = "l", col = "red", lwd = 2, main = "Comparison of t-Distribution Densities",
+          ylab = "Density", xlab = "x")
+
+lines(x, t_df4, col = "green", lwd = 2)
+lines(x, t_df10, col = "purple", lwd = 2)
+lines(x, t_df30, col = "blue", lwd = 2)
+
+legend("topright", legend = c("df=1", "df=4", "df=10", "df=30"),
+       col = c("red", "green", "purple", "blue"), lwd = 2)
+```
+
+```{r}
+print(qf(0.95, 10, 20))   # P(F < x) = 0.95    inverse cdf of F distribution
+
+area_left = pf(1.5, 10,20, lower.tail=TRUE)
+area_right = pf(1.5, 10,20, lower.tail=FALSE)
+
+prob_values = c(0.25, 0.50, 0.75, 0.999)
+quantiles = qf(prob_values, 10, 20)
+
+set.seed(123)
+hist(rf(1000, 10, 20), breaks = 30, col = "lightblue", main = "F-Distribution", xlab = "F-values")
+```
